@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "706886373201",
+    "project_id": "labtest-48d50",
+    "storage_bucket": "labtest-48d50.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706886373201:android:f57d16993521fddb70cd70",
+        "android_client_info": {
+          "package_name": "com.example.lab_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdmy-jPnyqsSFuDQLs-qguFrNIFfkeMD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

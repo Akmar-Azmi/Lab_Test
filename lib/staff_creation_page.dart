@@ -58,7 +58,7 @@ class _StaffCreationPageState extends State<StaffCreationPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/staff_logo.png', height: 120), // <- Add your image in assets
+              Image.asset('assets/staff_logo.png', height: 120),
               const SizedBox(height: 20),
               Container(
                 padding: const EdgeInsets.all(20),
@@ -70,11 +70,38 @@ class _StaffCreationPageState extends State<StaffCreationPage> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      buildField("Name", nameController),
+                      TextFormField(
+                        controller: nameController,
+                        decoration: const InputDecoration(labelText: 'Name'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) return 'Please enter a name';
+                          if (value.trim().length > 10) return 'Name cannot exceed 10 characters';
+                          return null;
+                        },
+                      ),
                       const SizedBox(height: 12),
-                      buildField("ID", idController),
+                      TextFormField(
+                        controller: idController,
+                        decoration: const InputDecoration(labelText: 'Staff ID'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) return 'Please enter an ID';
+                          if (value.trim().length > 6) return 'ID cannot exceed 6 characters';
+                          return null;
+                        },
+                      ),
                       const SizedBox(height: 12),
-                      buildField("Age", ageController, isNumber: true),
+                      TextFormField(
+                        controller: ageController,
+                        decoration: const InputDecoration(labelText: 'Age'),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) return 'Please enter age';
+                          final age = int.tryParse(value.trim());
+                          if (age == null) return 'Age must be a number';
+                          if (age < 18 || age > 55) return 'Age must be between 18 and 55';
+                          return null;
+                        },
+                      ),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
@@ -108,29 +135,6 @@ class _StaffCreationPageState extends State<StaffCreationPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget buildField(String label, TextEditingController controller, {bool isNumber = false}) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
-      validator: (value) {
-        if (value == null || value.isEmpty) return 'Please enter $label';
-        if (label == "Age") {
-          final age = int.tryParse(value);
-          if (age == null || age < 18 || age > 100) return 'Age must be between 18–100';
-        } else if (value.length < 3) {
-          return '$label must be at least 3 characters';
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-        fillColor: Colors.white,
-        filled: true,
       ),
     );
   }
